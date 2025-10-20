@@ -1,0 +1,16 @@
+target/
+.idea/
+.vscode/
+.env
+.DS_Store
+.mvn/
+.mvnw
+.mvnw.cmd
+.mvnw.sh
+.mvnw.bat
+.mvnw.sh
+data/
+
+init/
+logs/
+./config/
