@@ -4,14 +4,16 @@ public class CategoryReport {
     private Long categoryId;
     private String categoryName;
     private Double totalSpent;
-    private Integer transactionsCount;
+    private Long transactionsCount;
     private Double percentage;
 
+    // Конструктор по умолчанию
     public CategoryReport() {
     }
 
-    public CategoryReport(Long categoryId, String categoryName, Double totalSpent,
-            Integer transactionsCount, Double percentage) {
+    // Конструктор для JPQL
+    public CategoryReport(Long categoryId, String categoryName, Double totalSpent, Long transactionsCount,
+            Double percentage) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.totalSpent = totalSpent;
@@ -19,7 +21,7 @@ public class CategoryReport {
         this.percentage = percentage;
     }
 
-    // Getters and Setters
+    // Геттеры и сеттеры
     public Long getCategoryId() {
         return categoryId;
     }
@@ -44,11 +46,11 @@ public class CategoryReport {
         this.totalSpent = totalSpent;
     }
 
-    public Integer getTransactionsCount() {
+    public Long getTransactionsCount() {
         return transactionsCount;
     }
 
-    public void setTransactionsCount(Integer transactionsCount) {
+    public void setTransactionsCount(Long transactionsCount) {
         this.transactionsCount = transactionsCount;
     }
 

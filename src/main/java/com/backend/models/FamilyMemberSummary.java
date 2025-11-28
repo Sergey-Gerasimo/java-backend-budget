@@ -3,17 +3,20 @@ package com.backend.models;
 public class FamilyMemberSummary {
     private String familyMember;
     private Double totalSpent;
-    private Integer transactionsCount;
+    private Long transactionsCount;
 
+    // Конструктор по умолчанию
     public FamilyMemberSummary() {
     }
 
-    public FamilyMemberSummary(String familyMember, Double totalSpent, Integer transactionsCount) {
+    // Конструктор для JPQL
+    public FamilyMemberSummary(String familyMember, Double totalSpent, Long transactionsCount) {
         this.familyMember = familyMember;
         this.totalSpent = totalSpent;
         this.transactionsCount = transactionsCount;
     }
 
+    // Геттеры и сеттеры
     public String getFamilyMember() {
         return familyMember;
     }
@@ -30,11 +33,11 @@ public class FamilyMemberSummary {
         this.totalSpent = totalSpent;
     }
 
-    public Integer getTransactionsCount() {
+    public Long getTransactionsCount() {
         return transactionsCount;
     }
 
-    public void setTransactionsCount(Integer transactionsCount) {
+    public void setTransactionsCount(Long transactionsCount) {
         this.transactionsCount = transactionsCount;
     }
 }

@@ -7,7 +7,7 @@ public class SummaryReport {
     private Period period;
     private Double totalSpent;
     private Double averageDailySpent;
-    private Integer transactionsCount;
+    private Long transactionsCount; // Изменено с Integer на Long
     private List<CategoryReport> topCategories;
     private List<FamilyMemberSummary> familyMembersSummary;
 
@@ -43,7 +43,7 @@ public class SummaryReport {
         }
     }
 
-    // Getters and Setters
+    // Геттеры и сеттеры
     public Period getPeriod() {
         return period;
     }
@@ -68,11 +68,11 @@ public class SummaryReport {
         this.averageDailySpent = averageDailySpent;
     }
 
-    public Integer getTransactionsCount() {
+    public Long getTransactionsCount() {
         return transactionsCount;
     }
 
-    public void setTransactionsCount(Integer transactionsCount) {
+    public void setTransactionsCount(Long transactionsCount) {
         this.transactionsCount = transactionsCount;
     }
 

@@ -1,6 +1,9 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -11,6 +14,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be positive")
     @Column(nullable = false)
     private Double amount;
 
@@ -19,9 +24,11 @@ public class Transaction {
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
+    @NotBlank(message = "Family member is required")
     @Column(name = "family_member", nullable = false)
     private String familyMember;
 
+    @NotNull(message = "Date is required")
     @Column(nullable = false)
     private LocalDate date;
 
@@ -31,12 +38,10 @@ public class Transaction {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Связь с категорией
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
 
-    // Конструкторы
     public Transaction() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();

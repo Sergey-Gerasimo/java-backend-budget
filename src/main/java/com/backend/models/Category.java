@@ -1,6 +1,8 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,6 +12,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
     @Column(nullable = false)
     private String name;
 
@@ -23,7 +27,6 @@ public class Category {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Конструкторы
     public Category() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -36,7 +39,6 @@ public class Category {
         this.color = color;
     }
 
-    // PrePersist и PreUpdate для автоматического обновления временных меток
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

@@ -1,6 +1,8 @@
 package com.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -11,16 +13,21 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Category ID is required")
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
+    @NotNull(message = "Amount is required")
+    @Positive(message = "Amount must be positive")
     @Column(nullable = false)
     private Double amount;
 
+    @NotNull(message = "Period is required")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BudgetPeriod period;
 
+    @NotNull(message = "Start date is required")
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
@@ -33,12 +40,10 @@ public class Budget {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Связь с категорией
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
 
-    // Конструкторы
     public Budget() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
