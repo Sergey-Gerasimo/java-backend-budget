@@ -1,0 +1,74 @@
+@startuml FamilyBudgetERD
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:red>+ {x}</color></b>
+!define foreign_key(x) <color:blue>+ {x}</color>
+!define unique(x) <color:green>+ {x}</color>
+
+hide methods
+hide stereotypes
+
+table(categories) {
+  primary_key(id): BIGSERIAL
+  --
+  name: VARCHAR(255) <<NOT NULL>>
+  description: TEXT
+  color: VARCHAR(7)
+  created_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+  updated_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+}
+
+table(transactions) {
+  primary_key(id): BIGSERIAL
+  --
+  amount: DECIMAL(15,2) <<NOT NULL>>\n<<CHECK (amount >= 0)>>
+  description: TEXT
+  foreign_key(category_id): BIGINT <<NOT NULL>>
+  family_member: VARCHAR(100) <<NOT NULL>>
+  date: DATE <<NOT NULL>>
+  created_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+  updated_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+}
+
+table(budgets) {
+  primary_key(id): BIGSERIAL
+  --
+  foreign_key(category_id): BIGINT <<NOT NULL>>
+  amount: DECIMAL(15,2) <<NOT NULL>>\n<<CHECK (amount >= 0)>>
+  period: VARCHAR(20) <<NOT NULL>>\n<<CHECK (period IN ENUM)>>
+  start_date: DATE <<NOT NULL>>
+  end_date: DATE
+  created_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+  updated_at: TIMESTAMPTZ <<DEFAULT NOW()>>
+}
+
+' Связи между таблицами
+categories ||--o{ transactions : "один ко многим"
+categories ||--o{ budgets : "один ко многим"
+
+' Индексы (как заметки)
+note top of transactions
+  <b>Индексы:</b>
+  - idx_transactions_category_id
+  - idx_transactions_date
+  - idx_transactions_family_member
+  - idx_transactions_category_date
+end note
+
+note top of budgets
+  <b>Индексы:</b>
+  - idx_budgets_category_period
+  - idx_budgets_period_dates
+  <b>Уникальный ключ:</b>
+  - (category_id, period, start_date)
+end note
+
+note right of categories
+  <b>Категории трат:</b>
+  - Продукты
+  - Транспорт
+  - Развлечения
+  - Коммунальные услуги
+end note
+
+@enduml
