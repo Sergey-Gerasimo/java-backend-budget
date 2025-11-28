@@ -48,9 +48,8 @@ version: '3.8'
 
 services:
   backend:
-    image: openjdk:17-jdk-slim
+    image: ghcr.io/sergey-gerasimo/family-budget-backend:latest
     container_name: family-budget-backend
-    working_dir: /app
     volumes:
       - ./target/java-backend-1.0.0.jar:/app/app.jar
       - ./logs:/app/logs
