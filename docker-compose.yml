@@ -40,7 +40,7 @@ services:
       - "${DB_PORT}:5432"
     volumes:
       - ./data/postgres_data:/var/lib/postgresql/data
-      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init:/docker-entrypoint-initdb.d
     networks:
       - app-network
     restart: unless-stopped
